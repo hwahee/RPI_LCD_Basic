@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>컨트롤 Fan</h1>
+        <p><input type='checkbox' id='fan' /></p>
+        <script src='/socket.io/socket.io.js'></script>
+        <script>
+            const socket=io.connect()
+            window.addEventListener('load', ()=>{
+                const fan=document.getElementById('fan')
+                fan.addEventListener('change', ()=>{
+                    socket.emit('fan',Number(fan.checked))
+                })
+            })
+
+            socket.on('fan', (data)=>{
+                document.getElementById('fan').checked=data
+                socket.emit('fan',data)
+            })
+        </script>
+    </body>
+</html>
